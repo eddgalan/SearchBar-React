@@ -2,6 +2,18 @@ import { useState } from 'react';
 import SearchBar from './components/search-bar';
 import styled from 'styled-components';
 
+const StyledButton = styled.button `
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #FFF;
+  border: solid 1px #CCC;
+  cursor: pointer;
+  &:hover{
+    background-color: #EFEFEF;
+  }
+`;
+
 const people = [
   {
     id: '001',
@@ -81,15 +93,19 @@ function App() {
     }
   }
 
+  function handleItemSelected(item) {
+    setSelection(item);
+    alert("selected");
+  }
+
   return (
     <div>
-      <button onClick={ handleClick } name='all'> All </button>
-      <button onClick={ handleClick } name='people'> People </button>
-      <button onClick={ handleClick } name='calendar'> Calendar </button>
-      <button onClick={ handleClick } name='emails'> Emails </button>
-
-      <SearchBar items={ data } onSelected={ () => {} } />
-
+      <StyledButton onClick={ handleClick } name='all'> All </StyledButton>
+      <StyledButton onClick={ handleClick } name='people'> People </StyledButton>
+      <StyledButton onClick={ handleClick } name='calendar'> Calendar </StyledButton>
+      <StyledButton onClick={ handleClick } name='emails'> Emails </StyledButton>
+      { selection ? <div> Selected: { selection.title } </div> : '' }
+      <SearchBar items={ data } onSelected={ handleItemSelected } />
     </div>
   );
 }
